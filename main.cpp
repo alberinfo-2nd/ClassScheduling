@@ -18,6 +18,9 @@ void printGraph(const Graph& graph, const std::vector<Class>& classes) {
 int main() {
     auto classes = readClasses("Classes.txt");
     Graph G = Graph(classes);
+    G.readRestrictions("Restrictions.txt");
+
+    printGraph(G, classes);
 
     return 0;
 }

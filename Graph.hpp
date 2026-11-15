@@ -11,7 +11,7 @@ struct Color {
 };
 
 struct Vertex {
-    int id;
+    int CRN;
     struct Color color;
 };
 
@@ -22,6 +22,7 @@ private:
 
 public:
     Graph(const std::vector<Class>& classes);
+    void readRestrictions(std::string filename);
 
     void addEdge(int u, int v);
     void removeEdge(int u, int v);
@@ -29,6 +30,7 @@ public:
     int getVertexCount() const;
     std::vector<int> getNeighbors(int vertex) const;
     int getDegree(int vertex) const;
+    int findVertexByCRN(int CRN) const;
 };
 
 #endif

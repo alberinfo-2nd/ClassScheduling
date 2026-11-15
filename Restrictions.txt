@@ -1,0 +1,3 @@
+Type	Data
+Professor	12414	11841
+SharedStudent	10293	13476	16935

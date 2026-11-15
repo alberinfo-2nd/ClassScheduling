@@ -1,5 +1,8 @@
 #include "Graph.hpp"
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
 
 Graph::Graph(const std::vector<Class>& classes)
@@ -7,7 +10,7 @@ Graph::Graph(const std::vector<Class>& classes)
       adjacencyList(classes.size())
 {
     for(int i = 0; i < classes.size(); i++) {
-        vertices[i].id = i;
+        vertices[i].CRN = classes[i].CRN;
         vertices[i].color.startBlock = 0;
 
         switch(classes[i].frequency) {
@@ -24,12 +27,34 @@ Graph::Graph(const std::vector<Class>& classes)
     }
 }
 
+void Graph::readRestrictions(std::string filename) {
+    std::ifstream restrictions(filename); //For now assume the filename exists
+    std::string line;
+    getline(restrictions, line);
+
+    while(getline(restrictions, line)) {
+        std::vector<int> CRNList;
+
+        std::stringstream ss(line);
+        std::string field = "";
+        getline(ss, field, '	'); //Type
+        if(field == "Professor" || field == "SharedStudent") {
+            while(getline(ss, field, '	')) CRNList.push_back(std::stoi(field));
+        }
+
+        for(int i = 0; i < CRNList.size(); i++) {
+            for(int j = i + 1; j < CRNList.size(); j++) {
+                this->addEdge(findVertexByCRN(CRNList[i]), findVertexByCRN(CRNList[j]));
+            }
+        }
+    }
+}
+
 void Graph::addEdge(int u, int v) {
-    //Would this happen?
-    // if (u < 0 || v < 0 ||
-    //     u >= getVertexCount() ||
-    //     v >= getVertexCount() ||
-    //     u == v) return;
+    if (u < 0 || v < 0 ||
+        u >= getVertexCount() ||
+        v >= getVertexCount()
+    ) return;
 
     //Prevent multigraphs
     if (u == v) return;
@@ -84,4 +109,12 @@ int Graph::getDegree(int vertex) const {
     //     return -1;
 
     return adjacencyList[vertex].size();
+}
+
+int Graph::findVertexByCRN(int CRN) const {
+    for(int i = 0; i < getVertexCount(); i++) {
+        if(vertices[i].CRN == CRN) return i;
+    }
+
+    return -1;
 }
