@@ -25,3 +25,20 @@ std::vector<Class> readClasses(std::string filename) {
 
     return ClassList;
 }
+
+std::ostream& operator<<(std::ostream& out, const MeetingPattern value){
+    #define PROCESS_VAL(p) case(p): return out << #p;
+    switch(value){
+        PROCESS_VAL(M);
+        PROCESS_VAL(T);
+        PROCESS_VAL(W);
+        PROCESS_VAL(R);
+        PROCESS_VAL(F);
+        PROCESS_VAL(MW);
+        PROCESS_VAL(TR);
+        PROCESS_VAL(MWF);
+    }
+    #undef PROCESS_VAL
+
+    return out;
+}
