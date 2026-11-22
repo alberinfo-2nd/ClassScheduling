@@ -15,16 +15,17 @@ struct Vertex {
 };
 
 class Graph {
-private:
+public:
     std::vector<Class> classes;
     std::vector<Vertex> vertices;
     std::vector<std::vector<int>> adjacencyList;
 
-public:
+
     Graph(const std::vector<Class>& classes);
     void printGraph();
     void readRestrictions(std::string filename);
 
+    int addVertex(Class newClass, Color color);
     void addEdge(int u, int v);
     void removeEdge(int u, int v);
     bool hasEdge(int u, int v) const;

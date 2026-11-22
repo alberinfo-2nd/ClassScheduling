@@ -14,7 +14,7 @@ std::vector<Class> readClasses(std::string filename) {
         std::stringstream ss(line);
         std::vector<std::string> fields;
         std::string field = "";
-        while(getline(ss, field, '	')) { //Separate by tabs
+        while(getline(ss, field, ',')) { //Separate by tabs
             if(field.length() == 0) continue;
             fields.push_back(field);
         }

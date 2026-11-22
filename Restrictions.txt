@@ -1,4 +1,6 @@
-Type	Data
-Professor	12414	11841
-SharedStudent	10293	13476	16935
-Professor	17552	17551
+Type,Data
+Professor,12414,11841
+SharedStudent,10293,13476,16935
+SharedClassroom,17552,17551
+StartAfter,10:00,11841
+EndBefore,9:00,13476,10293
